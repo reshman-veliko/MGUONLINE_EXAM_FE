@@ -1,0 +1,238 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav position="end" class="SideNav" mode="side" [(opened)]="sideNav"
+        *ngIf="examinationData?.length > 0">
+        <!-- Timer -->
+        <div class="col-sm-12 mt-3 Time d-flex justify-content-center">
+            <countdown #cd1 [config]="timerConfig" (event)="handleEvent($event)"></countdown>
+        </div>
+
+        <!-- explanation about status -->
+        <div class="col-sm-12" *ngIf="examinationData?.length > 0 && exam_type!='23'">
+            <div class="row px-4 py-1">
+                <button (click)="FilterQuestions(0)" class="NotVisited my-fab"
+                    mat-mini-fab>{{status?.notVisited}}</button>
+                <span class="pl-2 pt-1 Info"> Not Visited</span>
+            </div>
+
+            <div class="row px-4 py-1">
+                <button (click)="FilterQuestions(1)" class="Visited my-fab" mat-mini-fab>{{status?.visited}}</button>
+                <span class="pl-2 pt-1 Info">Visited but not Answered</span>
+            </div>
+
+            <div class="row px-4 py-1">
+                <button (click)="FilterQuestions(2)" class="Answered my-fab" mat-mini-fab>{{status?.answered}}</button>
+                <span class="pl-2 pt-1 Info">Answered</span>
+            </div>
+            <div class="row px-4 py-1">
+                <button (click)="FilterQuestions(3)" class="Review my-fab" mat-mini-fab>{{status?.reviewed}}</button>
+                <span class="pl-2 pt-1 Info">Marked for Review</span>
+            </div>
+        </div>
+
+        <!-- Question Navigation -->
+        <div class="col-sm-12 mt-4 QuestionPagination" *ngIf="examinationData?.length > 0 && exam_type!='23'">
+            <div class="row px-3 QuestionNo">
+                Choose a question
+            </div>
+            <div class="row p-2">
+                <div class="col-sm-3 p-2" *ngFor="let exam of examinationData; let i=index">
+                    <button [class.Disabled]="!submitDisable" [disabled]="!submitDisable" [matTooltip]="exam?.status==0?'Not Visited':(exam?.status==1?
+                        'Visited':exam?.status==2?'Answered':'Marked For Review')" [ngClass]="{'NotVisited': exam?.status==0, 
+                        'Visited': exam?.status==1, 
+                        'Answered': (exam?.status==2), 
+                        'Review': (exam?.status==3)}" (click)="GotoQuestion(i)" mat-mini-fab>{{i+1}}</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- submit button -->
+        <div class="col-sm-12">
+            <div class="row">
+                <!-- <div class="col-sm-7">
+                    <span [class.Disabled]="!submitDisable && (dataService?.earlySubmitData | async)"> <button (click)="RequestSummary()" mat-raised-button color="accent"
+                        [disabled]="!submitDisable && (dataService?.earlySubmitData | async)"  class=" col-sm-12">Early Submit</button></span>
+                   
+                </div> -->
+                <div class="col-sm-7">
+                    <span > <button (click)="RequestSummary()" mat-raised-button color="accent"
+                        [disabled]="!submitDisable "  class=" col-sm-12">Early Submit</button></span>
+                   
+                </div>
+                <div class="col-sm-5">
+                    <button [disabled]="submitDisable"  (click)="GoToSummary()" mat-raised-button
+                        class=" col-sm-12 Submit">Submit</button>
+                        
+                </div>
+            </div>
+        </div>
+
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="container pb-3">
+            <webcam *ngIf="isProctored" hidden [height]="455" [width]="555" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" [allowCameraSwitch]="allowCameraSwitch"
+            [switchCamera]="nextWebcamObservable" [videoOptions]="videoOptions" [imageQuality]="1"
+            (cameraSwitched)="cameraWasSwitched($event)" (initError)="handleInitError($event)"></webcam>
+            <div class="row pt-3" *ngIf="examinationData?.length > 0">
+                <div class="col-sm-2">
+                    <button (click)="GoToInstructions()" [disabled]="!submitDisable" mat-button>
+                        <u>
+                            <span class="font-weight-bold">
+                                Instructions
+                            </span>
+                        </u>
+                    </button>
+                </div>
+                <div class="col-sm-10 pr-3 d-flex justify-content-end" *ngIf="exam_type!='23'">
+                    
+                    <span class="pt-1"> No of answered questions : &nbsp;</span>
+                    <input class="text-center font-weight-bold" type="text" style="width: 6%;"
+                        [value]="status?.answered + '/' + examinationData?.length" disabled>
+                    <button [matMenuTriggerFor]="menu" matTooltip="Calculator" mat-icon-button>
+                        <!-- <mat-icon>subtitles</mat-icon> -->
+                        <i class="text-primary fa fa-calculator fa-2x" aria-hidden="true"></i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <app-calculator (click)="$event.stopPropagation();"></app-calculator>
+                      </mat-menu>
+                </div>
+                <div class="col-sm-10 pr-3 d-flex justify-content-end" *ngIf="exam_type=='23'">
+                    
+                   
+                    <button [matMenuTriggerFor]="menu" matTooltip="Calculator" mat-icon-button>
+                        <!-- <mat-icon>subtitles</mat-icon> -->
+                        <i class="text-primary fa fa-calculator fa-2x" aria-hidden="true"></i>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <app-calculator (click)="$event.stopPropagation();"></app-calculator>
+                      </mat-menu>
+                </div>
+            </div>
+            <div class="row" *ngIf="exam_type==23" >
+                <div class="col-lg-12" style="height:500px;">
+                <div class=" width: 100%;
+                border: 1px solid;
+                overflow-y: scroll;
+                margin: 2%;">
+                <img [src]="imagePath" style="width: 100%;">
+                </div>
+            </div>
+            <!-- <div class="col-lg-12">
+                <div class="col-sm-2">
+                    <button 
+                        [matTooltip]="'Save'" (click)="Navigate('next', i, first, last)"
+                        class="Submit" mat-flat-button>
+                        <span>Save</span>
+                        
+                    </button>
+                </div>
+            </div> -->
+            </div>
+            <div class="row"  *ngIf="exam_type!=23">
+            <div class="col-sm-12" 
+                *ngFor="let exam of examinationData; let i=index; let first = first; let last = last">
+                <div class="row" *ngIf="i==activeIndex">
+                <div class="col-sm-12">
+                
+                <div class="row mt-3 QuestionNo" >
+                    <div class="col-sm-10">
+                        Question No: {{i+1}}
+                    </div>
+                    <div class="col-sm-2">
+                        Mark: {{exam?.mark}}
+                    </div>
+                </div>
+                <div class="row Question mt-3">
+                    <div [ngClass]="{'col-sm-12': exam?.isImage == 0, 
+                    'col-sm-8': exam?.isImage == 1}">
+                        <div class="col-sm-12" [innerHtml]="exam?.question"></div>
+                        <div class="row p-2" *ngIf="exam?.isAudio == 1 || exam?.isVideo == 1">
+                            <div *ngIf="exam?.isAudio == 1" class="col-sm-5">
+                                <audio class="w-100" controls>
+                                    <source [src]="exam?.audioFile">
+                                </audio>
+                            </div>
+                            <div *ngIf="exam?.isVideo == 1" class="col-sm-7">
+                                <video class="w-100" controls>
+                                    <source [src]="exam?.videoFile">
+                                </video>
+                            </div>
+                        </div>
+                        <!-- Questions available here -->
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="row" *ngIf="exam?.isImage == 1">
+                            <img class="rounded QuestionImage" [src]="exam?.imgUrl" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5" *ngIf="i==activeIndex">
+                    <div class="col-sm-3" *ngFor="let options of exam?.options; let j=index">
+                        <mat-card class="mat-elevation-z9 position-relative h-100">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <mat-radio-button [disabled]="!submitDisable" color="primary"
+                                        [checked]="exam?.answeredOption == options?.optionId"
+                                        (change)="Answer(i, j, exam?.studentResponseId, $event)"
+                                        [value]="options?.optionId">
+                                    </mat-radio-button>
+                                </div>
+                                <div class="col-sm-10">
+                                    <p id="option" style="word-wrap: break-word;" *ngIf="options?.isImage == 0"
+                                        [innerHtml]="options?.option">
+                                        <!-- Options available here -->
+                                    </p>
+                                    <img *ngIf="options?.isImage == 1" class="rounded AnswerImage"
+                                        [src]="options?.option" alt="">
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row pt-3" *ngIf="i==activeIndex">
+                    <div class="col-sm-2">
+                        <button [class.Disabled]="!submitDisable" [disabled]="!submitDisable"
+                            (click)="MarkASReview(i, exam?.status)" class="MarkReview" mat-raised-button>
+                            <span *ngIf="exam?.status!=3">Mark for review</span>
+                            <span *ngIf="exam?.status==3">Reviewed</span>
+                        </button>
+                    </div>
+                    <div class="col-sm-6">
+                        <button [class.Disabled]="!submitDisable" [disabled]="!submitDisable" (click)="ClearResponse(i)"
+                            mat-raised-button color="warn">
+                            Clear Response
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [class.Disabled]="!submitDisable" [disabled]="!submitDisable" matTooltip="Previous" *ngIf="!first"
+                            (click)="Navigate('previous', i, first, last)" class="Submit" mat-flat-button>
+                            <span>Previous</span>
+                            <!-- <mat-icon *ngIf="!first">
+                                keyboard_arrow_left
+                            </mat-icon> -->
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button [class.Disabled]="!submitDisable" [disabled]="!submitDisable"
+                            [matTooltip]="last?'Save':'Save and Next'" (click)="Navigate('next', i, first, last)"
+                            class="Submit" mat-flat-button>
+                            <span *ngIf="!last">Save and Next</span>
+                            <span *ngIf="last">Save</span>
+                            <!-- <mat-icon *ngIf="!last">
+                                keyboard_arrow_right
+                            </mat-icon>
+                            <mat-icon *ngIf="last">
+                                save
+                            </mat-icon> -->
+                        </button>
+                    </div>
+                </div>
+            </div>
+            </div>
+              
+            </div>
+        </div>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

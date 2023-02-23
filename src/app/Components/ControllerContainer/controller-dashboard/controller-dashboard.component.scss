@@ -1,0 +1,147 @@
+@import "../../../../styles.scss";
+
+.list {
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  .box {
+    padding: 20px 10px;
+    border-bottom: solid 1px #ccc;
+    color: color(primary);
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    background: white;
+    font-size: 1em;
+    font-weight: bold;
+  }
+}
+
+.CardHeader {
+  background-color: color(review);
+  color: color(basic);
+  .Header {
+    font-size: 1em !important;
+    // font-weight: bold;
+  }
+}
+
+.Table {
+  .TitleCaption {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .TitleTotal {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  .Desc {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: color(darkSuccess);
+  }
+  .mat-column-sno {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .mat-column-action {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 12% !important;
+    width: 12% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+}
+
+.StudentAssignmentTable {
+  .mat-column-sno {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 8% !important;
+    width: 8% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  .mat-column-qpCode {
+    word-wrap: break-word !important;
+    white-space: unset !important;
+    flex: 0 0 15% !important;
+    width: 15% !important;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+
+    word-break: break-word;
+
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: gray !important;
+  }
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: color(success);
+  }
+  ::ng-deep .mat-slide-toggle-thumb {
+    background-color: red;
+  }
+}
+
+.ExpansionHeader {
+  height: auto;
+  // .Checkbox{
+  //   width: 3% !important;
+
+  // }
+
+  .check-box:hover {
+    background-color: rgba(245, 200, 1, 0.698);
+  }
+
+  // ::ng-deep.matCheckboxClass .mat-ripple-element {
+  //   background-color: red !important;
+  // }
+}
+
+// .remove-pointer {
+//   pointer-events: none;
+// }
+
+// .pointer-fill {
+//   pointer-events: visiblefill !important;
+// }
+
+// .mat-expansion-indicator{
+//   pointer-events: visiblefill !important;
+// }

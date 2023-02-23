@@ -1,0 +1,12 @@
+@import '../../../styles.scss';
+
+.CardHeader{
+    background-color: color(review);
+    color: color(basic);
+    .Header{
+        font-size: 1.4em !important;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+}
+

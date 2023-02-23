@@ -1,0 +1,52 @@
+<div class="col-sm-12">
+    <div class="row d-flex justify-content-center">
+        <h5 class="font-weight-bold">{{studentDetails?.studentName}}</h5>
+    </div>
+    <div class="row" *ngIf="studentDetails?.smpCount > 0">
+        <div class="col-sm-11 pt-2">
+            <h6 class="font-weight-bold">No of SMP attempts</h6>
+        </div>
+        <div class="col-sm-1">
+            <button style="outline: none; cursor: default;" mat-mini-fab color="warn">{{studentDetails?.smpCount}}</button>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center" *ngIf="studentDetails?.smpCount == 0">
+       ** No SMP still available **
+    </div>
+    <div class="row" *ngIf="studentDetails?.smpCount > 0">
+        <div class="col-sm-6 font-weight-bold d-flex justify-content-center">
+            Warning &nbsp;&nbsp;{{studentDetails?.smpCount}} <span class="text-danger">*</span>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-center">
+               <span *ngIf="studentDetails?.smpOtp" class="font-weight-bold">{{studentDetails?.smpOtp}}</span>
+               <!-- <span *ngIf="data?.entered" class="font-weight-bold text-danger strikethrough">
+                    <span class="text-dark">{{data?.key}}</span>
+                  </span> -->
+            </div>
+    </div>
+    <div class="row">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Reason</mat-label>
+            <textarea maxlength="250" [formControl]="reason" matInput required></textarea>
+            <mat-error *ngIf="reason?.hasError('required')">
+                Please fill out this! 
+              </mat-error>
+        </mat-form-field>
+    </div>
+   
+    <div class="row d-flex justify-content-end">
+        <div class="col-sm-4">
+            <button  mwlConfirmationPopover
+            popoverTitle="Do you want to Allow this student?"
+            placement="top" (confirm)="allow()" mat-raised-button class="Submit">Allow Exam</button>
+        </div> 
+        <div class="col-sm-4">
+            <button [disabled]="reason?.invalid" mwlConfirmationPopover
+            popoverTitle="Do you want to block this student?"
+            placement="top" (confirm)="Block()" mat-raised-button class="Submit">Block</button>
+        </div>
+        <div class="col-sm-4">
+            <button type="button" mat-raised-button color="warn" (click)="Close()">Close</button>
+        </div>
+    </div>
+</div>

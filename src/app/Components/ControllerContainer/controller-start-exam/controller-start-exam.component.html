@@ -1,0 +1,208 @@
+<div style="margin-left: 10px;" class="container">
+    <div class="col-sm-12 pb-3" *ngIf="examList.length > 0">
+        <mat-card style="border: 1px solid rgb(103 56 183 / 1);margin-top: 10px;margin-bottom: 10px;" class="wid" >
+        <div class="row pt-2 d-flex justify-content-end">
+            <button (click)="GoToInstructions()" mat-button>
+                <u>
+                    <span class="font-weight-bold">
+                        Instructions
+                    </span>
+                </u>
+            </button>
+        </div>
+        <!-- Timer heading protion --> 
+                
+                
+           
+        <div class="col-sm-12 row mt-3">
+            <div class="col-sm-9 d-flex justify-content-center MasterTimer">
+                <span *ngIf="!isExamStarted">Time remaining to start exam &nbsp;&nbsp;</span>
+                <countdown #masterTimer [config]="masterTimerConfig" (event)="handleMasterTimerEvent($event)">
+                </countdown>
+            </div>
+            <div class="col-sm-2 pt-2">
+                <button (click)="Submit('all')" [disabled]="!masterSubmitValid" mat-raised-button class="Submit">
+                    Submit All
+                </button>
+            </div>
+            <div class="col-sm-1 pt-2">
+                <button matTooltip="Refresh" color="primary" (click)="refresh()" mat-raised-button>
+                    Refresh
+                </button>
+            </div>
+        </div>
+ </mat-card>
+        <!-- Tab portion -->
+
+        <mat-tab-group mat-stretch-tabs class="mat-elevation-z4 wid Table">
+            <mat-tab class="w-100" *ngFor="let exam of examList; let index=index;" [label]="exam?.examName">
+
+                <mat-table class="mt-2" [dataSource]="exam?.studentList" matSort>
+                    <!--- Note that these columns can be defined in any order.
+                                                                      The actual rendered columns are set as a property on the row definition" -->
+
+                    <!-- SNO Column -->
+                    <ng-container [matColumnDef]="displayedColumns[0]">
+                        <mat-header-cell class="tableHeader" *matHeaderCellDef> {{headerCaption?.caption1}}
+                        </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i = index;">
+                            {{(i+1) + (myPaginator.pageIndex * myPaginator.pageSize)}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- name Column -->
+                    <ng-container [matColumnDef]="displayedColumns[1]">
+                        <mat-header-cell class="tableHeader" *matHeaderCellDef mat-sort-header>
+                            {{headerCaption?.caption2}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            {{element[displayedColumns[1]]}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- hall ticket no Column -->
+                    <ng-container [matColumnDef]="displayedColumns[2]">
+                        <mat-header-cell class="tableHeader" *matHeaderCellDef mat-sort-header>
+                            {{headerCaption?.caption3}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element">
+                            {{element[displayedColumns[2]]}} </mat-cell>
+                    </ng-container>
+
+                    <!-- system no Column -->
+                    <ng-container [matColumnDef]="displayedColumns[3]">
+                        <mat-header-cell class="tableHeader" *matHeaderCellDef mat-sort-header>
+                            {{headerCaption?.caption4}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i=index;">
+                            <!-- <mat-form-field class="w-75">
+                                <mat-select [(ngModel)]="element[displayedColumns[3]]" 
+                                (selectionChange)="SystemChange($event?.value, index, i)">
+                                    <mat-option *ngFor="let data of element?.systems" [innerHtml]="data" [value]="data">
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field> -->
+                            {{element[displayedColumns[3]]}}
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- Timer Column -->
+                    <ng-container [matColumnDef]="displayedColumns[4]">
+                        <mat-header-cell class="tableHeader" *matHeaderCellDef>
+                            {{headerCaption?.caption5}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i=index">
+                            <countdown #studentTimer (event)="handleStudentTimerEvent($event, index, i)"
+                                [config]="element?.timeLeft"></countdown>
+                        </mat-cell>
+                    </ng-container>
+
+                    <!-- action Column -->
+                    <ng-container [matColumnDef]="displayedColumns[5]">
+                        <mat-header-cell class="tableHeader d-flex justify-content-center" *matHeaderCellDef>
+                            {{headerCaption?.caption6}} </mat-header-cell>
+                        <mat-cell *matCellDef="let element; let i=index">
+                            <button
+                                [disabled]="element?.status == 1 || 
+                            element?.status == 5 || element?.status == 6 || !isExamStarted || element?.isVerified == 0 || element?.timerCompleted"
+                                [ngClass]="{
+                                'Pause': element?.status == 4 , 
+                                'Resume': element?.status == 2 || element?.status == 3, 
+                                'Stop': element?.status == 5 || element?.status == 6 || element?.status == 1 || element?.timerCompleted}"
+                                [matTooltip]="(element?.status == 3 || element?.status == 2)?'Pause Time!':'Resume Time!'"
+                                (click)="StudentTimerPauseResume(index, i, element?.status)" mat-icon-button>
+                                <mat-icon *ngIf="element?.status == 5 || element?.status == 1 || element?.status == 6 
+                                    || element?.isVerified == 0 || !isExamStarted || element?.timerCompleted">
+                                    stop</mat-icon>
+                                <mat-icon
+                                    *ngIf="((element?.status == 2 || element?.status == 3) && isExamStarted) && !element?.timerCompleted">
+                                    pause
+                                </mat-icon>
+                                <mat-icon *ngIf="element?.status == 4  && !element?.timerCompleted">play_arrow
+                                </mat-icon>
+                            </button>
+                            <button
+                                [disabled]="element?.status == 2 || element?.status == 3 
+                            || element?.status == 5 || element?.status == 1
+                            || element?.status == 6 || !isExamStarted || element?.isVerified == 0 || element?.timerCompleted || element?.earlyTerminationRequest==2||element?.studentSmpStatus"
+                                color="primary" [matMenuTriggerFor]="systems" matTooltip="Reallocate" mat-icon-button>
+                                <mat-icon>shuffle</mat-icon>
+                            </button>
+                            <mat-menu #systems="matMenu">
+                                <span *ngFor="let data of backupSystems; let j=index">
+                                    <button [disabled]="data?.disabled"
+                                        (click)="SystemChange(element?.systemId, element?.systemNo, data?.systemId, data?.systemCode, index, i, j, element?.examStudentId)"
+                                        mat-menu-item>
+                                        <mat-icon>desktop_windows</mat-icon>
+                                        <!-- <mat-icon color="warn" *ngIf="data?.removed">close</mat-icon> -->
+                                        <span>{{data?.systemCode}}</span>
+                                    </button>
+                                </span>
+                            </mat-menu>
+                            <button (click)="StudentSMP(element, index, i)"
+                                [disabled]="element?.status == 2 
+                            || element?.status == 3 || element?.status == 5 || element?.status == 1
+                                || element?.status == 6 || !isExamStarted || element?.isVerified == 0 || element?.timerCompleted || element?.earlyTerminationRequest==2||!element?.studentSmpStatus" color="warn" matTooltip="SMP"
+                                mat-icon-button>
+                                <mat-icon>bug_report</mat-icon>
+                            </button>
+                            <button (click)="Submit('student', index, i, exam?.examId, element,exam)" [class.DefaultButton]="element?.status == 2 || element?.status == 6 
+                            || !isExamStarted || element?.isVerified == 0 || element?.status == 1 ||  element?.studentSmpStatus ||
+                            (element?.status == 3 && !element?.timerCompleted)||element?.status==4" [disabled]="element?.status == 2 || element?.status == 6 || element?.studentSmpStatus ||
+                            !isExamStarted || element?.isVerified == 0 || element?.status == 1 || 
+                            (element?.status == 3 && !element?.timerCompleted)|| element?.status==4" class="SuccessIcon" matTooltip="Save"
+                                mat-icon-button>
+                                <mat-icon>save</mat-icon>
+                            </button>
+
+                           
+
+                            <button [class.DefaultButton]="element?.earlyTerminationRequest  != 2" matTooltip="Early Request"
+                            [disabled]="element?.earlyTerminationRequest  != 2" style="color: orange"
+                            (click)="EarlySubmitResponse(element,exam)" mat-icon-button>
+                                <mat-icon>settings_applications</mat-icon>
+                            </button>
+                            <button (click)="StudentPic(element, index, i)"
+                            [disabled]="element?.status == 1"  matTooltip="View Picture"
+                            mat-icon-button>
+                            <mat-icon>picture_in_picture</mat-icon>
+                         </button>
+
+                         <!-- <button [disabled]="element?.status != 5" matTooltip="See Result" (click)="SeeResult(element, index, i)"
+                                color="primary" 
+                                mat-icon-button>
+                                <mat-icon>assessment</mat-icon>
+                            </button> -->
+                            <button *ngIf="element?.isVerified == 1"
+                                [disabled]="element?.isVerified == 1 || element?.status == 1" style="color: green"
+                                mat-icon-button>
+                                <mat-icon>done_all</mat-icon>
+                            </button>
+                            <button matTooltip="Verify Now" (click)="SingleStudentVerification(element, index, i)"
+                                *ngIf="element?.isVerified == 0" color="primary" [disabled]="examTimerCompleted"
+                                mat-icon-button>
+                                <mat-icon>vpn_key</mat-icon>
+                            </button>
+                        </mat-cell>
+                    </ng-container>
+
+
+                    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                </mat-table>
+                <div class="col-sm-12 d-flex justify-content-center p-3" *ngIf="exam?.studentList?.data?.length == 0">
+                    No data available
+                </div>
+                <!-- <div class="row"> -->
+                <div class="col-sm-12">
+                    <mat-paginator #myPaginator style="background: transparent" [pageSize]="50"
+                        [pageSizeOptions]="[50, 75, 100]">
+                    </mat-paginator>
+                </div>
+                <div class="col-sm-12 d-flex justify-content-end p-2">
+                    <button (click)="Submit('exam', index, '', exam?.examId)"
+                        [disabled]="!masterSubmitValid || element?.status == 6" mat-raised-button
+                        class="Submit">Submit</button>
+                </div>
+                <!-- </div> -->
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
+</div>

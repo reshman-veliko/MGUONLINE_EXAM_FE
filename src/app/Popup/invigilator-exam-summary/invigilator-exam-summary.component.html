@@ -1,0 +1,223 @@
+<div class="col-sm-12">
+    <div class="row">
+        <div class="col-sm-10">
+            <h3 class="Heading font-weight-bold">Examination Summary</h3>
+        </div>
+        <div class="col-sm-2">
+            <button [useExistingCss]="true" mat-raised-button printSectionId="print-section" ngxPrint
+                color="accent">Print</button>
+        </div>
+        <!-- <div class="col-sm-1">
+            <button mat-raised-button (click)="Close()" color="warn">Close</button>
+        </div> -->
+    </div>
+    <div class="row mt-2" [ngClass]="{'d-flex justify-content-center': summary?.length == 1}">
+        <div *ngFor="let summary of summary" 
+            class="col-sm-6">
+            <mat-card class="CardHeight">
+                <mat-card-title class="font-weight-bold Title">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Exam Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.examName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Exam Date
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.examDate}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Programme Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.programmeName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Batch Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.batchName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            Course Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.courseName}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            {{summary?.semesterType}}
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.semester}}
+                        </div>
+                    </div>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="row p-1">
+                        <div class="col-sm-10">
+                            Registered students
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="w-100 text-center" disabled type="text"
+                                [value]="summary?.studentList?.totalStudentsCount">
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="col-sm-10">
+                            Attended students
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="w-100 text-center" disabled type="text"
+                                [value]="summary?.studentList?.attendedCount">
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="col-sm-10">
+                            Absentee count
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="w-100 text-center" disabled type="text"
+                                [value]="summary?.studentList?.notAttendedCount">
+                        </div>
+                    </div>
+                    <div class="row p-1">
+                        <div class="col-sm-10">
+                            SMP count
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="w-100 text-center" disabled type="text"
+                                [value]="summary?.studentList?.smpStudentsCount">
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="Print" id="print-section">
+        <div class="row d-flex justify-content-center">
+            <h3 class="Heading font-weight-bold">Absentee Statement</h3>
+        </div>
+        <div class="p-2" *ngFor="let summary of summary">
+            <div class="row d-flex justify-content-center">
+                <div class="col-sm-8">
+                    <div class="row">
+
+                        <div class="col-sm-4">
+                            Exam Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.examName}}
+                        </div>
+                        <div class="col-sm-4">
+                            Exam Date
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.examDate}}
+                        </div>
+                        <div class="col-sm-4">
+                            Programme Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.programmeName}}
+                        </div>
+                        <div class="col-sm-4">
+                            Batch Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.batchName}}
+                        </div>
+                        <div class="col-sm-4">
+                            Course Name
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.courseName}}
+                        </div>
+                        <div class="col-sm-4">
+                            {{summary?.semesterType}}
+                        </div>
+                        <div class="col-sm-1">
+                            :
+                        </div>
+                        <div class="col-sm-7">
+                            {{summary?.semester}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3 d-flex justify-content-center">
+                <table class="col-sm-8 table table-bordered">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Registered students</th>
+                            <th scope="row">{{summary?.studentList?.totalStudentsCount}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Attended students</th>
+                            <th scope="row">{{summary?.studentList?.attendedCount}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">Absentee count</th>
+                            <th scope="row">{{summary?.studentList?.notAttendedCount}}</th>
+                        </tr>
+                        <tr>
+                            <th scope="row">SMP count</th>
+                            <th scope="row">{{summary?.studentList?.smpStudentsCount}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="row d-flex justify-content-center">
+        <span class="text-danger">**</span>
+        <h5>THANK YOU</h5>
+        <span class="text-danger">**</span>
+    </div>
+</div>

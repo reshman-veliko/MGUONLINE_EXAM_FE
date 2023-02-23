@@ -1,0 +1,22 @@
+<div class="col-sm-12">
+        <div class="row d-flex justify-content-center">
+                <u>Upload Answer Sheet</u>
+        </div>
+        <div class="col-sm-12 mt-3 Time d-flex justify-content-center">
+               Time Remaining To Upload --<b> <countdown #cd1 [config]="timerConfig" (event)="handleEvent($event)"></countdown></b>
+            </div>
+        <div class="row">
+<hr style="    width: 100%;    border: 1px solid;">
+<br>
+                <div class="col-md-12  form-group">
+                        
+                        <input (change)="pngSelect($event)" type="file" accept="image/png" id="fileInputId">
+                </div>
+    <hr style="    width: 100%;    border: 1px solid;">            
+
+        </div>
+        
+        <div class="row d-flex justify-content-center">
+                <button (click)="submitAnswerSheet()" mat-raised-button class="Submit">Upload</button>
+        </div>
+</div>

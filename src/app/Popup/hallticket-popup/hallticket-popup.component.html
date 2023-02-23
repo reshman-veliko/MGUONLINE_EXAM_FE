@@ -1,0 +1,77 @@
+<div class="col-sm-12">
+    <!-- <div class="row d-flex justify-content-center Heading">
+        Enter Hallticket Number
+    </div> -->
+    <form [formGroup]="hallticketForm" (ngSubmit)="Submit()">
+        <div class="row">
+            <mat-form-field appearance="outline" class="FormField">
+                <mat-label>{{formCaption?.caption1}}</mat-label>
+                <input readonly (keypress)="_keyPress($event)" formControlName="hallTicketNumber" matInput
+                    [placeholder]="formCaption?.caption1">
+                <button style="outline: none !important;" (click)="ResetMenu()" matTooltip="Virtual Keyboard" matSuffix
+                    type="button" [matMenuTriggerFor]="menu" mat-icon-button>
+                    <mat-icon>keyboard</mat-icon>
+                </button>
+                <mat-error *ngIf="hallticketForm.get('hallTicketNumber').hasError('required')">
+                    {{error?.required}}
+                </mat-error>
+            </mat-form-field>
+            <mat-menu #menu="matMenu">
+                <div class="col-sm-12 py-1" (click)="$event.stopPropagation();">
+                    <div class="row">
+                        <div class="col-sm-3 py-1 d-flex justify-content-center" *ngFor="let value of keyboardValue">
+                            <button (click)="InputChange(value) ; $event.stopPropagation()" type="button"
+                                mat-stroked-button>{{value}}</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <button [matTooltip]="inputType == '123'?'Number': 'Character'" type="button"
+                                (click)="KeyboardTypeChange()" mat-raised-button>{{inputType}}</button>
+                        </div>
+                        <div *ngIf="inputType == '123'" class="col-sm-3 d-flex justify-content-center">
+                            <button [matTooltip]="upperCase?'Lowercase': 'Uppercase'"
+                                [color]="upperCase?'primary': null" type="button" (click)="LowerUperCaseChange()"
+                                mat-raised-button>
+                                <mat-icon>arrow_upward</mat-icon>
+                            </button>
+                        </div>
+                        <!-- <div [ngClass]="{'col-sm-6': inputType != '123', 'col-sm-4': inputType == '123'}">
+                            <button class="w-100" type="button" (click)="Space()" mat-raised-button>
+                                <mat-icon>space_bar</mat-icon>
+                            </button>
+                        </div> -->
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <button matTooltip="Backspace" type="button" (click)="Backspace()" mat-raised-button>
+                                <mat-icon>backspace</mat-icon>
+                            </button>
+                        </div>
+                        <div class="col-sm-3 d-flex justify-content-center">
+                            <button matTooltip="Clear" type="button" (click)="Clear()" mat-raised-button>
+                                <mat-icon>clear</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-menu>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline" class="FormField">
+                <mat-label>{{formCaption?.caption2}}</mat-label>
+                <input style="cursor: pointer" readonly matInput (click)="picker.open()" [matDatepicker]="picker"
+                    formControlName="birthDate" [max]="maxDate" [placeholder]="formCaption?.caption2" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="hallticketForm.get('birthDate').hasError('required')">
+                    {{error?.required}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-8 pt-2">
+                <button [disabled]="hallticketForm?.invalid" class="Submit w-100" mat-raised-button>Submit</button>
+            </div>
+        </div>
+    </form>
+</div>

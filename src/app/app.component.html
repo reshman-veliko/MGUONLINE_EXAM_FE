@@ -1,0 +1,52 @@
+<div *ngIf="isChrome && !isMobile && !isTab">
+    <router-outlet></router-outlet>
+</div>
+<div *ngIf="!isChrome">
+    <h4>Sorry, your browser is not supported</h4><br>
+    <h4>The browser you are using does not have support for our examination system. Please use chrome browser.</h4>
+</div>
+
+<div *ngIf="isMobile">
+    <h4>Sorry,Mobile  is not supported</h4><br>
+    
+</div>
+<div *ngIf="isTab">
+    <h4>Sorry, Tablet is not supported</h4><br>
+   
+</div>
+
+<router-outlet></router-outlet>
+
+<ngx-ui-loader
+bgsColor= "#f1c40f"
+bgsOpacity= "0.5"
+bgsPosition= "bottom-right"
+bgsSize= 60
+bgsType= "ball-spin-clockwise"
+blur= "0"
+delay= 0
+fgsColor= "#DE6E4B"
+fgsPosition= "center-center"
+fgsSize= 40
+fgsType= "chasing-dots"
+gap= 24
+logoPosition= "center-center"
+logoSize= 120
+logoUrl= ""
+masterLoaderId= "master"
+overlayBorderRadius= "0"
+overlayColor= "rgba(40,40,40,0.17)"
+pbColor= "#f1c40f"
+pbDirection= "ltr"
+pbThickness= 2
+hasProgressBar= false
+text= "loading..."
+textColor= "#011e40"
+textPosition= "center-center"
+maxTime= -1
+minTime= 500>
+</ngx-ui-loader>
+
+
+<ngx-ui-loader [loaderId]="'loader-02'"
+bgsPosition="bottom-center"></ngx-ui-loader>

@@ -1,0 +1,68 @@
+<div class="container mt-4 mb-3">
+    <div class="col-sm-12">
+        <div style="height: 91%; width: 100%; overflow: auto;">
+            <div style="text-align: center;"><span style="font-size:22px;"><strong><u>Paper Specific
+                            Instructions</u></strong></span></div> <br>
+            <br>
+            <div style="text-align: center;"><strong><span style="background-color:#FFFF00;">
+                        {{user?.courseCode}}&nbsp; {{user?.courseName}}
+                    </span></strong></div>
+            <p style="text-align:left;"><em>Duration</em> : <strong>{{user?.duration}} Minutes </strong><span
+                    style="float:right;"><em>Total Marks</em> : <strong>{{user?.totalMark}}</strong></span></p>
+            <strong>Read the
+                following instructions carefully</strong><br>
+            <ol>
+                <li>Please go through the various question palette symbols and understand their meanings before starting the
+                    examination.</li>
+            </ol>
+            <ol>
+                <li value="2">The question paper consists of<strong> Multiple Choice Questions (MCQ)</strong>.
+                    <br> <br> 
+                    a) Multiple choice type questions have four
+                    choices, out of which only <strong>ONE</strong> is the correct answer. Select the answer
+                    by clicking on the radio button placed before the choice, with the help of the mouse.<br> 
+                </li>
+            </ol>
+            <ol>
+                <li value="3">All those questions that are not attempted will carry zero marks. There will be no
+                    negative marking for MCQ questions.</li>
+            </ol>
+            <ol>
+                <li value="4">Your answers will be saved on the server periodically and also at the end of the
+                    examination. The examination will <strong>stop automatically</strong> at the end of
+                    <strong>{{user?.duration}} Minutes.</strong></li>
+            </ol>
+            <ol>
+                <li value="5">You are not allowed to leave the examination hall until the completion of the examination.</li>
+            </ol>
+            <ol>
+                <li value="6">Charts, graph sheets, calculators and mathematical tables are NOT allowed in the
+                    examination hall.</li>
+            </ol>
+        </div>
+        <button (click)="Previous()" matTooltip="Previous" mat-mini-fab color="accent" class="bottomButton">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="row">
+            <mat-card>
+                <small class="font-weight-bold">
+                    <mat-checkbox [(ngModel)]="checked" color="primary">
+                    </mat-checkbox> I have read and understood the instructions.
+                    All computer hardware allotted to me are in proper
+                    working condition. I declare that I am not in possession of / not wearing / not carrying any
+                    prohibited gadget like mobile phone, bluetooth devices etc. /any prohibited material with me into
+                    the Examination Hall.I agree that in case of not adhering to the instructions, I shall be liable to
+                    be debarred from this Test and/or to disciplinary action, which may include ban from future Tests /
+                    Examinations.
+                </small>
+                <div class="row p-2 d-flex justify-content-center">
+                    <button [disabled]="!checked || !((dataService?.examStartAndTimer | async)?.isProgress)" (click)="Proceed()" matTooltip="Start Examination" mat-raised-button
+                        class="Submit">
+                        I am ready to begin
+                    </button>
+                </div>
+            </mat-card>
+        </div>
+        
+    </div>
+</div>

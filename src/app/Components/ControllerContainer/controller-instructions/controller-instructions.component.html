@@ -1,0 +1,89 @@
+<div class="container mt-4 mb-3">
+        <div class="col-sm-12">
+            <div style="height: 91%; width: 100%; overflow: auto;">
+                <div style="text-align: center;">
+                    <span style="font-size:22px;">
+                    <strong><u>Instructions</u></strong>
+                </span>
+            </div>
+             <br>
+                <br>
+                <!-- <div style="text-align: center;"><strong><span style="background-color:#FFFF00;">
+                            {{user?.courseCode}}: {{user?.courseName}}
+                        </span></strong></div> -->
+                <!-- <p style="text-align:left;"><em>Duration</em> : <strong>{{user?.examDuration}} </strong><span
+                        style="float:right;"><em>Total Marks</em> : <strong>{{user?.totalMark}}</strong></span></p> -->
+                <strong>Read the
+                    following instructions carefully</strong>
+                    <br>
+                    <br>
+                <ol>
+                    <li>The Invigilator must ensure that all the systems allocated in the respective hall are suitable for conducting the respective examination.</li>
+                </ol>
+                <ol>
+                    <li value="2">The Invigilator is to ensure that all candidates have presented their respective Hall Tickets before entering the examination hall.</li>
+                </ol>
+                <ol>
+                    <li value="3">
+                        Candidates may only be permitted to the exam hall after confirmation by the invigilator using the facial recognition software.
+                    </li>
+                </ol>
+                <ol>
+                    <li value="4">Candidates are permitted to occupy their allotted seats 
+                       <strong>30 minutes</strong>  
+                        before the scheduled start of the examination.</li>
+                </ol>
+                <ol>
+                    <li value="5">The examination will commence only after all the candidates who have been 
+                        verified by the
+                        <strong>facial recognition</strong>  
+                         software, logs in to their respective account.</li>
+                </ol>
+                <ol>
+                    <li value="6">The Invigilator must ensure that all candidates are occupying their allocated systems only.</li>
+                </ol>
+                <ol>
+                    <li value="7">The Invigilator has the authority to shuffle the questions as per the number of candidates appearing for the examination.</li>
+                </ol>
+                <ol>
+                    <li value="8">The examination must begin at the pre-defined time unless and until communications from official channels intervene.</li>
+                </ol>
+                <ol>
+                    <li value="9">The Invigilator has the authority to resume the examination of a candidate who had exited their examination screen.</li>
+                </ol>
+                <ol>
+                    <li value="10">The Invigilator has the authority to mark <strong>SMP (Suspected Malpractice)</strong> for a candidate after repeated exam log out or if found to be indulged in any sort of malpractice.</li>
+                </ol>
+                <ol>
+                    <li value="11">Candidates are not permitted to leave the examination hall before the end of the examination.</li>
+                </ol>
+                <ol>
+                    <li value="12">The Invigilator must ensure that all candidates that have appeared for the examination submit their answers</li>
+                </ol>
+                <ol>
+                    <li value="13">The Invigilator can manually submit the answer of any candidate after the examination time has elapsed.</li>
+                </ol>
+                <ol>
+                    <li value="14">The Invigilator can know the status of any student anytime during the examination period.</li>
+                </ol>
+            </div>
+            <div class="row" *ngIf="showConfirmation">
+                <mat-card>
+                    <small class="font-weight-bold">
+                        <mat-checkbox [(ngModel)]="checked" color="primary">
+                        </mat-checkbox> I have read and understood the instructions.
+                        All computer hardware allotted to me are in proper
+                        working condition. I agree that in case of not adhering to the instructions, I shall be liable to
+                        be debarred from this Test and/or to disciplinary action, which may include ban from future Tests /
+                        Examinations.
+                    </small>
+                </mat-card>
+            </div>
+            <div *ngIf="showConfirmation" class="row p-2 d-flex justify-content-center">
+                <button [disabled]="!checked || !examFetchCompleted" (click)="Accept()" matTooltip="Proceed" mat-raised-button
+                    class="Submit">
+                    Accept and Start
+                </button>
+            </div>
+        </div>
+    </div>

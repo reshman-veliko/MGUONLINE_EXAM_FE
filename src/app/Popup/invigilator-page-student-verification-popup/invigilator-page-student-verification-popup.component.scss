@@ -1,0 +1,32 @@
+@import "../../../styles.scss";
+
+.Title {
+  font-size: 1.3em;
+  font-weight: bold;
+  color: color(primary);
+  .VerifiedIcon {
+    color: color(success);
+    font-weight: bold;
+    font-size: 1.5em;
+  }
+}
+
+.SubTitle {
+  font-size: 1em;
+  font-weight: bold;
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+    background-color: color(success);
+  }
+  ::ng-deep .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+    background-color: none !important;
+  }
+}
+
+.Caption {
+  font-size: 1em;
+  font-weight: bold;
+}
+.picsize{
+  height:257px;
+  width: 230px;
+}

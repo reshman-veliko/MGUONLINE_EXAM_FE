@@ -1,0 +1,31 @@
+.size{
+    width: 300px;
+    height: 200px;
+}
+.s1{
+    width: 300px;
+    font-weight: bold;
+}
+.s2{
+    width: 100%;
+    font-weight: bold; 
+    color: red; 
+}
+.h1{
+    width: 100%;
+    font-weight: bold; 
+}
+
+.Title {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: color(primary);
+    .VerifiedIcon {
+      color: color(success);
+      font-weight: bold;
+      font-size: 1.5em;
+    }
+  }
+.pad{
+    padding: 20px;
+}

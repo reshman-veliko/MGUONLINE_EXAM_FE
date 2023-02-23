@@ -1,0 +1,87 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~material-design-icons/iconfont/material-icons.css";
+
+$colors: (
+  primary: #011e40,//#247BA0 //#011e40
+  accent: #f1c40f,
+  basic: #fff,
+  basicDark: #1b1b1b,
+  warn: #ec644b,
+  success: #00e640,
+  darkSuccess: #3A7D44,
+  submitButton: #398439,
+  cancelButton: #d9534f,
+  review: #673ab7, //#673ab7 //#C2CAE8
+  lightenGray: lighten(gray, 30%)
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$desktop: 960px;
+
+@mixin desktop {
+  @media ( min-width: #{$desktop} ) {
+    @content;
+  }
+}
+
+::ng-deep .mat-form-field-flex > .mat-form-field-infix {
+  padding: 0.4em 0px !important;
+}
+::ng-deep .mat-form-field-label-wrapper {
+  top: -1.5em;
+}
+
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  transform: translateY(-1.1em) scale(0.75);
+  width: 133.33333%;
+}
+
+.FormField {
+  width: 100%;
+}
+
+.Cancel {
+  background-color: color(cancelButton);
+  color: color(basic);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.Submit {
+  background-color: color(submitButton);
+  color: color(basic);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.tableHeader {
+  color: black;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.strikethrough {
+  position: relative;
+}
+.strikethrough:before {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 50%;
+  right: 0;
+  border-top: 2px solid;
+  border-color: inherit;
+
+  -webkit-transform:rotate(-10deg);
+  -moz-transform:rotate(-10deg);
+  -ms-transform:rotate(-10deg);
+  -o-transform:rotate(-10deg);
+  transform:rotate(-5deg);
+}
+

@@ -1,0 +1,60 @@
+<div class="col-sm-12">
+    <div class="row d-flex justify-content-center">
+            <u>Examination Summary</u>
+    </div>
+    <div class="row p-1" *ngIf="exam_type!=23">
+            <div class="col-sm-10">
+                    <span class="Info">Total number of Questions</span>
+            </div>
+            <div class="col-sm-2">
+                    <input disabled class="w-100 text-center font-weight-bold" type="text" [value]="result?.totalQuestions">
+            </div>
+            <!-- <span></span>  -->
+    </div>
+    <div class="row p-1" *ngIf="exam_type!=23">
+            <div class="col-sm-10">
+                    <span class="Info">Questions answered</span>
+            </div>
+            <div class="col-sm-2">
+                    <!-- <button class="Answered my-fab" mat-mini-fab>{{result?.AnsweredCount}}</button> --> 
+                    <input disabled class="w-100 text-center font-weight-bold" type="text" [value]="result?.AnsweredCount">
+            </div>
+            <!-- <span>{{result?.answered}}</span>  -->
+    </div>
+    <div class="row p-1" *ngIf="exam_type!=23">
+            <div class="col-sm-10">
+                    <span class="Info">Questions marked as review</span>
+            </div>
+            <div class="col-sm-2">
+                    <!-- <button class="Review my-fab" mat-mini-fab>{{result?.markedForReview}}</button> -->
+                    <input disabled class="w-100 text-center font-weight-bold" type="text" [value]="result?.markedForReview">
+            </div>
+            <!-- <span>{{result?.reviewed}}</span>  -->
+    </div>
+    <div class="row p-1" *ngIf="exam_type!=23">
+            <div class="col-sm-10">
+                    <span class="Info">Questions not visited</span>
+            </div>
+            <div class="col-sm-2">
+                    <!-- <button class="NotVisited my-fab" mat-mini-fab>{{result?.NotVisited}}</button> -->
+                    <input disabled class="w-100 text-center font-weight-bold" type="text" [value]="result?.NotVisited">
+            </div>
+            <!-- <span></span>  -->
+    </div>
+    <div class="row p-1" *ngIf="exam_type!=23">
+            <div class="col-sm-10">
+                    <span class="Info">Questions visited but not answered</span>
+            </div>
+            <div class="col-sm-2">
+                    <!-- <button class="my-fab" class="warn" mat-mini-fab>{{result?.NotAnsweredCount}}</button> -->
+                    <input disabled class="w-100 text-center font-weight-bold" type="text" [value]="result?.NotAnsweredCount">
+            </div>
+            <!-- <span>{{result?.visitedNotAnswered}}</span>  -->
+    </div>
+    <div class="row d-flex justify-content-center">
+            <span class="text-danger">**</span> <h5 class="font-weight-bold">Request sent Please wait...</h5> <span class="text-danger">**</span>
+    </div>
+    <!-- <div class="row d-flex justify-content-center">
+            <button (click)="Done()" mat-raised-button class="Submit">Done</button>
+    </div> -->
+</div>

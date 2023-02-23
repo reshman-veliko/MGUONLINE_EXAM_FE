@@ -1,0 +1,9 @@
+@import '../../../../styles.scss';
+
+.bottomButton{
+    position:fixed;
+    bottom:10%;
+    left:3%;
+    z-index: 300;
+    outline: none !important;
+}

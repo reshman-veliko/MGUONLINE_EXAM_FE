@@ -1,0 +1,20 @@
+<div class="col-sm-12">
+        <div class="row d-flex justify-content-center Title">
+            OTP
+        </div>
+        <form [formGroup]="otpForm" (ngSubmit)="Submit()">
+        <div class="row">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Enter OTP</mat-label>
+                <input maxlength="10" (keyup.enter)="Submit()" (keypress)="dataService?.NumberOnly($event)" formControlName="otp" matInput [(ngModel)]="otp" placeholder="Enter OTP" required>
+                <mat-error *ngIf="otpForm?.get('otp').hasError('required')">
+                    {{ERROR?.required}}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <button [disabled]="otpForm?.invalid" mat-raised-button class="Submit w-100">Submit</button>
+        </div>
+    </form>
+    </div>
+    

@@ -1,0 +1,20 @@
+@import "../../../styles.scss";
+
+.Heading {
+  color: color(primary);
+}
+
+.Title {
+  font-size: 0.9em !important;
+}
+
+.CardHeight {
+  min-height: 60vh !important;
+  max-height: 60vh !important;
+  overflow: auto;
+}
+
+.Print{
+    display: none;
+}
+

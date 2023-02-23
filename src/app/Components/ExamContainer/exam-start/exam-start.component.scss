@@ -1,0 +1,98 @@
+@import "../../../../styles.scss";
+
+.Disabled {
+  background-color: color(lightenGray) !important;
+  color: color(basicDark) !important;
+}
+
+.sidenav-container {
+  // position: fixed;
+  // z-index: -1;
+  min-height: 100vh;
+  width: 100%;
+  .SideNav {
+    width: 50%;
+    @include desktop {
+      width: 20%;
+    }
+    .Time {
+      font-size: 2em;
+    }
+    .QuestionPagination {
+      overflow: auto;
+      height: 50vh;
+    }
+  }
+  .my-fab {
+    width: 25px;
+    height: 25px;
+    line-height: 14px;
+    font-size: 12px;
+    font-weight: bold;
+
+    ::ng-deep .mat-button-wrapper {
+      line-height: 14px;
+      padding: 0;
+    }
+  }
+  .Info {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: color(primary);
+  }
+  .QuestionNo {
+    font-size: 1em;
+    font-weight: bold;
+    color: color(primary);
+  }
+  .Question {
+    text-align: justify;
+    overflow: auto;
+    height: 40vh;
+  }
+  .AnswerImage {
+    min-width: 60%;
+    max-width: 60%;
+  }
+  .QuestionImage {
+    min-width: 80%;
+    max-width: 80%;
+  }
+  .NotVisited {
+    background-color: color(basic);
+    color: color(basicDark);
+  }
+  .Visited {
+    background-color: color(warn);
+    color: color(basic);
+  }
+  .Review {
+    background-color: color(review);
+    color: color(basic);
+  }
+  .Answered {
+    background-color: color(success);
+    color: color(basicDark);
+  }
+  .MarkReview {
+    background-color: color(accent);
+    color: color(basicDark);
+  }
+}
+
+#option::first-letter {
+  text-transform: uppercase;
+}
+.px1-4{
+  padding-left: 0.5rem!important;
+  padding-right: 0.5rem!important;
+}
+.pad{
+  padding: 0px !important;
+}
+.mt1-4 {
+  margin-top: 0.5rem!important; 
+}
+.padcam{
+  padding-left: 36px !important;
+}

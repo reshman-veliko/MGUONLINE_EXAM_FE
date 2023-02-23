@@ -1,0 +1,48 @@
+@import '../../../../styles.scss';
+
+.bottomButton{
+    position:fixed;
+    bottom:10%;
+    right:3%;
+    outline: none !important;
+}
+
+.Title{
+    font-size: 1.3em;
+    font-weight: bold;
+    color: color(primary);
+}
+
+.my-fab {
+    width: 25px;
+    height: 25px;
+    line-height: 14px;
+    font-size: 12px;
+    font-weight: bold;
+
+    ::ng-deep .mat-button-wrapper {
+      line-height: 14px;
+      padding: 0;
+    }
+  }
+
+.NotVisited {
+    background-color: color(basic) !important;
+    color: color(basicDark) !important;
+  }
+  .Visited {
+    background-color: color(warn) !important;
+    color: color(basic) !important;
+  }
+  .Review {
+    background-color: color(review) !important;
+    color: color(basic) !important;
+  }
+  .Answered {
+    background-color: color(success) !important;
+    color: color(basicDark) !important;
+  }
+  .MarkReview {
+    background-color: color(accent);
+    color: color(basicDark);
+  }

@@ -1,0 +1,155 @@
+<div class="col-sm-12">
+    <div class="row d-flex justify-content-center Heading">
+        <span> Examination Locked </span>
+        <mat-icon>lock</mat-icon>
+    </div>
+    <div *ngIf="isProctored" >
+        <div >
+        <mat-card>
+            <mat-card-title>Instructions</mat-card-title>
+            <ol>
+                <li>
+                     <mat-card-content>You are seeing this screen since the system has detected some possible unfair activities in your workstation. These activities include</mat-card-content>
+                <ul>
+                    <li><mat-card-content>Opening other browser windows</mat-card-content></li>
+                    <li><mat-card-content>Using other input devices like keyboard</mat-card-content></li>
+                    <li><mat-card-content>Changing focus from the examination window</mat-card-content></li>
+                </ul>
+                </li>
+                <li> <mat-card-content>Press the "Request Unlock Key" button for getting your unlock key</mat-card-content></li>
+                <li> <mat-card-content>This as a warning to you and your exam will be suspended when these kinds of suspected activity continues</mat-card-content></li>
+                
+                <li> <mat-card-content>Contact the helpdesk for emergencies 8921578219</mat-card-content></li>
+
+
+            </ol>
+            <div *ngIf="isRemaining" >
+             <mat-card-content><h3>You are left with <span style="color: red;font-weight: bold;">{{data}}</span> more warnings before the system suspends the examination permanently.</h3></mat-card-content>
+            </div>
+
+            <div *ngIf="!isRemaining" >
+                <mat-card-content><h3>You have no more warnings left please contact invigilator.</h3></mat-card-content>
+               </div>
+               <div *ngIf="isProctored" class="row ">
+                <div style="margin-top: 2px;" class="col-md-8">
+                    <button [disabled]="smpover" mat-button type="button" class="Submit" (click)=" SMPCodeFetch()">Request unlock key</button>
+                  
+                </div>
+                <!-- <div class="col-md-4 btn-margin">
+                    <button [disabled]="lockForm?.invalid" mat-raised-button class="Submit">Unlock</button>
+                  
+                </div> -->
+        
+            </div>
+            
+        </mat-card>
+        <div *ngIf="smpover">
+        <mat-card>
+            <mat-card-subtitle><span class="text-danger">You have reached maximum number of warnings. Please wait for instructions from your invigilator.</span> </mat-card-subtitle>
+            
+        </mat-card></div>
+    
+        
+    </div>
+        <div  class="col-md-6">
+          
+            <!-- <mat-card>SMP KEY:6645</mat-card> -->
+
+        </div>
+        
+
+    </div>
+    <form [formGroup]="lockForm" (ngSubmit)="Submit()">
+    
+    <!-- <div class="row d-flex justify-content-center">
+            <span class="text-danger">**Please contact Invigilator**</span> 
+            
+    </div> -->
+    <div >
+                
+        <mat-card *ngIf="isshow" style="border: 1px solid red;margin-top: 4px;">
+            <div class="row">
+                <div class="col-sm-3">
+                    <mat-card-subtitle style="color: black;font-weight: bold;margin-top: 15px;">Approval Code :{{Approval_Code}}</mat-card-subtitle>
+                 
+                </div>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field appearance="outline" class="FormField">
+                                <mat-label>{{formCaption}}</mat-label>
+                                <input readonly type="text" formControlName="smpOtp" matInput [placeholder]="formCaption">
+                                <button style="outline: none !important;" (click)="ResetMenu()" matTooltip="Virtual Keyboard" 
+                                matSuffix type="button" [matMenuTriggerFor]="menu" mat-icon-button>
+                                    <mat-icon>keyboard</mat-icon>
+                                </button>
+                                <mat-error *ngIf="lockForm.get('smpOtp').hasError('required')">
+                                        {{error?.required}}
+                                    </mat-error>
+                            </mat-form-field>
+                            <mat-menu #menu="matMenu">
+                                <div class="col-sm-12 py-1" (click)="$event.stopPropagation();">
+                                    <div class="row">
+                                        <div class="col-sm-3 py-1 d-flex justify-content-center" *ngFor="let value of keyboardValue">
+                                            <button (click)="InputChange(value) && $event.stopPropagation()" type="button" mat-stroked-button>{{value}}</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 d-flex justify-content-center">
+                                            <button [matTooltip]="inputType == '123'?'Number': 'Character'" type="button" (click)="KeyboardTypeChange()"
+                                                mat-raised-button>{{inputType}}</button>
+                                        </div>
+                                        <div *ngIf="inputType == '123'" class="col-sm-3 d-flex justify-content-center">
+                                            <button [matTooltip]="upperCase?'Lowercase': 'Uppercase'" [color]="upperCase?'primary': null" type="button" (click)="LowerUperCaseChange()"
+                                                mat-raised-button>
+                                                <mat-icon>arrow_upward</mat-icon>
+                                            </button>
+                                        </div>
+                                        <!-- <div [ngClass]="{'col-sm-6': inputType != '123', 'col-sm-4': inputType == '123'}">
+                                            <button class="w-100" type="button" (click)="Space()" mat-raised-button>
+                                                <mat-icon>space_bar</mat-icon>
+                                            </button>
+                                        </div> -->
+                                        <div class="col-sm-3 d-flex justify-content-center">
+                                            <button matTooltip="Backspace" type="button" (click)="Backspace()" mat-raised-button>
+                                                <mat-icon>backspace</mat-icon>
+                                            </button>
+                                        </div>
+                                        <div class="col-sm-3 d-flex justify-content-center">
+                                            <button matTooltip="Clear" type="button" (click)="Clear()" mat-raised-button>
+                                                <mat-icon>clear</mat-icon>
+                                            </button>
+                                        </div>
+                                    </div>
+                    
+                                </div>
+                            </mat-menu>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            <div class="col-sm-2">
+                
+                   <div style="margin-top: 10px;" *ngIf="isProctored" class="row ">
+    
+                   
+                        <button [disabled]="lockForm?.invalid" mat-raised-button class="Submit">Unlock</button>
+                      
+                    
+            
+                </div>
+            </div>
+
+            
+        </div>
+      
+            
+        </mat-card></div>
+    <div *ngIf="!isProctored" class="row pull-right mt-2">
+        
+        <button [disabled]="lockForm?.invalid" mat-raised-button class="Submit">Unlock</button>
+        <!-- <button mat-raised-button class="Submit" type="button " (click)=" SMPCodeFetch()" >Fetch your key</button> -->
+    </div>
+</form>
+</div>

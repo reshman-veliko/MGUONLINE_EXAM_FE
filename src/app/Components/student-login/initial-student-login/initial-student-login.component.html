@@ -1,0 +1,200 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-sm-12" *ngIf="studentData">
+
+            <mat-card style="margin-top: 3%;margin-bottom: 3%;" class="mat-elevation-z8" *ngIf="studentData?.examName">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.studyCentre}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.studyCentre}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.studyCentreCode}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.studyCentreCode}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.examName}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.examName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.examDate}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.examDate | date: 'dd-MM-yyyy'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.examTime}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.examTime}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.duration}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.duration}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4 class="font-weight-bold">{{studentData?.fullName}}</h4>
+                        <h5 class="font-weight-bold">{{studentData?.hallTicketNumber}}</h5>
+                        <h6>{{studentData?.houseName}}</h6>
+                        <h6>{{studentData?.streetName}}</h6>
+                        <h6>{{studentData?.city}}</h6>
+                        <h6>{{studentData?.state}}</h6>
+                        <h6>{{studentData?.country}}</h6>
+                    </div>
+                    <div class="col-sm-2">
+                        <img *ngIf="studentData?.photo" class="w-100 rounded" [src]="studentData?.photo"
+                            alt="profile image">
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.programmeName}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.programmeName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.batchName}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.batchName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{caption?.courseName}}
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.courseName}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                {{studentData?.semesterType}}:
+                            </div>
+                            <div class="col-sm-8 font-weight-bold">
+                                <div class="row">
+                                    <div class="col-sm-1">
+                                        <span style="padding-right: 1%">:</span>
+                                    </div>
+                                    <div class="col-sm-11">
+                                        {{studentData?.semester}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-end">
+                    <div class="col-sm-2 pt-2">
+                        <button (click)="Submit()" [disabled]="!studentData" class="Submit" mat-raised-button>Go to
+                            Instruction</button>
+                    </div>
+                </div>
+            </mat-card>
+
+        </div>
+        <!-- <div class="col-sm-4">
+
+            <mat-card>
+                
+            </mat-card>
+
+        </div> -->
+    </div>
+</div>
