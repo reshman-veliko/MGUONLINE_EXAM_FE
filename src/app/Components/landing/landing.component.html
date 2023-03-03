@@ -4,7 +4,7 @@
         <mat-toolbar class="ToolBar">
             <mat-toolbar-row>
                 <img class="LogoImg" [src]="logo?.img" alt="logo?.alt">
-                <span class="ml-3 w-100 col-sm-9">DIRECTORATE FOR APPLIED SHORT-TERM PROGRAMMES EXAMINATION</span>
+                <span class="ml-3 w-100 col-sm-9">MGUONLINE EXAMINATION</span>
                 <span *ngIf="(dataService?.isNotLoginScreen | async) && !(dataService?.warning | async)" class="d-flex justify-content-end py-5">
                     <img class="userImg rounded p-3" [src]="(dataService?.studentData | async)?.photo" alt="">
                     <span class="userName p-2 mt-2">{{(dataService?.studentData | async)?.fullName}}

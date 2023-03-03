@@ -24,7 +24,7 @@ export class LandingComponent implements OnInit, AfterViewInit, OnDestroy {
     private encryptionService: EncryptionService, private questionService: QuestionService) { }
 
   logo = {
-    img: "../../../assets/Images/Logo.png",
+    img: "../../../assets/Images/mguonlinelogo.png",
     alt: "logo"
   }
   user: any;
