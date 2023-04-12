@@ -145,7 +145,7 @@
                 </div>
                 <div class="row Question mt-3">
                     <div [ngClass]="{'col-sm-12': exam?.isImage == 0, 
-                    'col-sm-8': exam?.isImage == 1}">
+                    'col-sm-12': exam?.isImage == 1}">
                         <div class="col-sm-12" [innerHtml]="exam?.question"></div>
                         <div class="row p-2" *ngIf="exam?.isAudio == 1 || exam?.isVideo == 1">
                             <div *ngIf="exam?.isAudio == 1" class="col-sm-5">
@@ -161,7 +161,7 @@
                         </div>
                         <!-- Questions available here -->
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <div class="row" *ngIf="exam?.isImage == 1">
                             <img class="rounded QuestionImage" [src]="exam?.imgUrl" alt="">
                         </div>

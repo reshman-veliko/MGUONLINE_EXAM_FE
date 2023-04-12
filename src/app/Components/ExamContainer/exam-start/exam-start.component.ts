@@ -20,6 +20,7 @@ import { ConfirmPopupComponent } from 'src/app/Popup/confirm-popup/confirm-popup
 import { CancelPopupComponent } from 'src/app/Popup/cancel-popup/cancel-popup.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UploadQuestionComponent } from 'src/app/Popup/upload-question/upload-question.component';
+import { ExamPauseComponent } from 'src/app/Popup/exam-pause/exam-pause.component';
 // 0 not visited
 //   // 1 Visited but not answered
 //   // 2 Answered
@@ -35,6 +36,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private toastrService: ToastrService, private router: Router,
     private dataService: DataService,
     private dialog: MatDialog, private encryptionService: EncryptionService,
+    private dialogExamPause: MatDialog,
     private examService: ExamAPIService,
     private _sanitizer: DomSanitizer,
     private ngxLoader: NgxUiLoaderService, private questionService: QuestionService) { }
@@ -175,6 +177,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
     this.sideNavSubscription = this.dataService.sideNav.subscribe(response => {
       this.sideNav = !this.sideNav;
     })
+    this.CheckStatusExamPause()
   }
 
   ngAfterViewInit() {
@@ -229,7 +232,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
 
       var timeLeft = event.left / 60000
 
-      console.log(timeLeft)
+      
       if (event.action == "start") {
         this.toastrService.success("Examination started");
       }
@@ -378,6 +381,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
   GoToSummary(): void {
     this.router.navigate(['/initial']);
     this.exam_status='submit';
+    this.exam_pause_status='stop';
     this.dialog.open(ExamSummaryComponent,
       {
         minWidth: '35%',
@@ -480,6 +484,49 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  
+  CheckStatusExamPause(): void {
+    try {
+      this.questionService.CheckExamStarts().subscribe(response => {
+        
+        if (response.errorCode && (response.errorCode == this.dataService.unAuthorizedCode)) {
+          this.dataService.LogOut();
+        }
+        else{
+          setTimeout(() => {
+            this.CheckStatusExamPause()
+          }, 1000);
+        
+          if(this.exam_pause_status=='start'){
+            if(response.message=="Exam paused"){            
+              this.dialogExamPause.closeAll();
+              this.dialogExamPause.open(ExamPauseComponent,
+                {
+                  width: '30%'
+                });
+            }
+            else if(response.message=="Exam started"){
+              this.dialogExamPause.closeAll();
+            }
+          }
+         
+        }
+      }, error => {
+        setTimeout(() => {
+          this.CheckStatusExamPause()
+        }, 1000);
+      
+      })
+    }
+    catch (e) {
+      setTimeout(() => {
+        this.CheckStatusExamPause()
+      }, 1000);
+      
+    }
+  }
+
+
   GoToInstructions(): void {
     sessionStorage.setItem('instruction', 'popup');
     this.dialog.open(StudentInstructionPopupComponent,
@@ -533,7 +580,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
           this.dataService.LogOut();
         }
         else if (response.success) {
-          console.log(response)
+          
           this.ngxLoader.stop();
           this.toastrService.success(response.message);
           this.dialog.open(WarningComponent,
@@ -556,9 +603,9 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
       this.ngxLoader.stop();
     }
   }
-
+  exam_pause_status:any='start';
   RequestSummary(): void {
-
+    this.exam_pause_status='stop';
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       width: '40%',
       data: {
@@ -570,6 +617,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
       var isSubmit = dialogRef.componentInstance.isSubmit;
       
       if (isSubmit) {
+        this.exam_pause_status='stop';
         this.exam_status='early_submit';
         try {
           this.ngxLoader.start();
@@ -632,6 +680,8 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
           // this.toastrService.error(e);
           this.ngxLoader.stop();
         }
+      }else{
+        this.exam_pause_status='start';
       }
     })
   }

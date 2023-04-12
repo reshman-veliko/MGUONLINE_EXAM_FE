@@ -16,6 +16,7 @@ import { WebcamModule } from 'ngx-webcam';
 import { ConfirmPopupComponent } from 'src/app/Popup/confirm-popup/confirm-popup.component';
 import { CancelPopupComponent } from 'src/app/Popup/cancel-popup/cancel-popup.component';
 import { UploadQuestionComponent } from 'src/app/Popup/upload-question/upload-question.component';
+import { ExamPauseComponent } from 'src/app/Popup/exam-pause/exam-pause.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { UploadQuestionComponent } from 'src/app/Popup/upload-question/upload-qu
     })
   ],
   entryComponents: [WarningComponent, ExamSummaryComponent, StudentInstructionPopupComponent,
-  StudentEarlyExamSubmitPopupComponent,CancelPopupComponent,UploadQuestionComponent,
+  StudentEarlyExamSubmitPopupComponent,CancelPopupComponent,UploadQuestionComponent,ExamPauseComponent,
   ConfirmPopupComponent]
 })
 export class ExamContainerModule { }

@@ -12,6 +12,7 @@ import { StudentEarlyExamSubmitPopupComponent } from 'src/app/Popup/student-earl
 import { ConfirmPopupComponent } from 'src/app/Popup/confirm-popup/confirm-popup.component';
 import { CancelPopupComponent } from 'src/app/Popup/cancel-popup/cancel-popup.component';
 import { UploadQuestionComponent } from 'src/app/Popup/upload-question/upload-question.component';
+import { ExamPauseComponent } from 'src/app/Popup/exam-pause/exam-pause.component';
 export const ExamComponentContainer = [
     CommonInstructionsComponent, 
     CommonPanelComponent, 
@@ -21,6 +22,7 @@ export const ExamComponentContainer = [
     MarkListComponent,
     UploadQuestionComponent,
     ExamSummaryComponent,
+    ExamPauseComponent,
     StudentInstructionPopupComponent,
     CalculatorComponent,
     StudentEarlyExamSubmitPopupComponent,
