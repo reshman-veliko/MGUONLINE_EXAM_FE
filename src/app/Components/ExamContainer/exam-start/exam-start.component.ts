@@ -208,6 +208,7 @@ export class ExamStartComponent implements OnInit, AfterViewInit, OnDestroy {
     // if (window.innerHeight != this.winHeight && alreadyMarked != 'true') {
     if (window.innerHeight != this.winHeight) {
       if(this.exam_status == 'start'){
+        this.exam_pause_status='stop';
         this.MarkSMP();
       }
       
